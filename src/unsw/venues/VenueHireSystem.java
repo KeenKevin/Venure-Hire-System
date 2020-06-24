@@ -1,80 +1,174 @@
-/**
- *
- */
 package unsw.venues;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * Venue Hire System for COMP2511.
- *
- * A basic prototype to serve as the "back-end" of a venue hire system. Input
- * and output is in JSON format.
- *
- * @author Robert Clifton-Everest
- *
- */
 public class VenueHireSystem {
+    private ArrayList<Venue> venues;
+    private ArrayList<Reservation> reservations;
 
-    /**
-     * Constructs a venue hire system. Initially, the system contains no venues,
-     * rooms, or bookings.
-     */
     public VenueHireSystem() {
-        // TODO Auto-generated constructor stub
+        venues = new ArrayList<Venue>();
+        reservations = new ArrayList<Reservation>();
     }
 
     private void processCommand(JSONObject json) {
         switch (json.getString("command")) {
+            case "room": {
+                String venue = json.getString("venue");
+                String room = json.getString("room");
+                String size = json.getString("size");
+                addRoom(venue, room, size);
+                break;
+            }
 
-        case "room":
-            String venue = json.getString("venue");
-            String room = json.getString("room");
-            String size = json.getString("size");
-            addRoom(venue, room, size);
-            break;
+            case "request": {
+                String id = json.getString("id");
+                LocalDate start = LocalDate.parse(json.getString("start"));
+                LocalDate end = LocalDate.parse(json.getString("end"));
+                int small = json.getInt("small");
+                int medium = json.getInt("medium");
+                int large = json.getInt("large");
 
-        case "request":
-            String id = json.getString("id");
-            LocalDate start = LocalDate.parse(json.getString("start"));
-            LocalDate end = LocalDate.parse(json.getString("end"));
-            int small = json.getInt("small");
-            int medium = json.getInt("medium");
-            int large = json.getInt("large");
+                JSONObject result = request(id, start, end, small, medium, large);
 
-            JSONObject result = request(id, start, end, small, medium, large);
+                System.out.println(result.toString());
+                break;
+            }
 
-            System.out.println(result.toString(2));
-            break;
+            case "change": {
+                String id = json.getString("id");
+                LocalDate start = LocalDate.parse(json.getString("start"));
+                LocalDate end = LocalDate.parse(json.getString("end"));
+                int small = json.getInt("small");
+                int medium = json.getInt("medium");
+                int large = json.getInt("large");
 
-        // TODO Implement other commands
+                JSONObject result = change(id, start, end, small, medium, large);
+                
+                System.out.println(result.toString());
+                break;
+            }
+
+            case "cancel": {
+                String id = json.getString("id");
+                cancel(id);
+
+                break;
+            }
+
+            case "list": {
+                String venue = json.getString("venue");
+
+                JSONArray result = list(venue);
+
+                System.out.println(result.toString());
+                break;
+            }
         }
     }
 
-    private void addRoom(String venue, String room, String size) {
-        // TODO Process the room command
+    private void addRoom(String venueName, String room, String size) {
+        Venue venue = getVenue(venueName);
+        if (venue == null) {
+            venue = addVenue(venueName);
+        }
+
+        venue.addRoom(room, size);
     }
 
-    public JSONObject request(String id, LocalDate start, LocalDate end,
-            int small, int medium, int large) {
+    public JSONObject request(String id, LocalDate start, LocalDate end, int small, int medium, int large) {
         JSONObject result = new JSONObject();
 
-        // TODO Process the request commmand
+        for (Venue v : venues) {
+            ArrayList<Room> rooms = v.request(start, end, small, medium, large);
 
-        // FIXME Shouldn't always produce the same answer
-        result.put("status", "success");
-        result.put("venue", "Zoo");
+            if (rooms != null) {
+                Reservation newReservation = new Reservation(id, start, end, rooms);
+                reservations.add(newReservation);
 
-        JSONArray rooms = new JSONArray();
-        rooms.put("Penguin");
-        rooms.put("Hippo");
+                result.put("status", "success");
+                result.put("venue", v.getName());
 
-        result.put("rooms", rooms);
+                JSONArray roomNames = new JSONArray();
+                for (Room r : rooms) {
+                    roomNames.put(r.getName());
+                    r.confirmBooking(newReservation);
+                }
+                result.put("rooms", roomNames);
+
+                return result;
+            }
+        }
+
+        result.put("status", "rejected");
         return result;
+    }
+
+    public JSONObject change(String id, LocalDate start, LocalDate end, int small, int medium, int large) {
+        JSONObject result = new JSONObject();
+
+        for (Venue v : venues) {
+            ArrayList<Room> rooms = v.change(id, start, end, small, medium, large);
+
+            if (rooms != null) {
+                Reservation previousReservation = getReservation(id);
+                previousReservation.change(start, end, rooms);
+                result.put("status", "success");
+
+                JSONArray roomNames = new JSONArray();
+                for (Room r : rooms) {
+                    roomNames.put(r.getName());
+                }
+                result.put("rooms", roomNames);
+
+                return result;
+            }
+        }
+
+        result.put("status", "rejected");
+        return result;
+    }
+
+    public void cancel(String id) {
+        Reservation reservation = getReservation(id);
+        reservation.removeRooms();
+        reservations.remove(reservation);
+    }
+
+    public JSONArray list(String id) {
+        Venue venue = getVenue(id);
+        JSONArray result = venue.getRoomJSON();
+
+        return result;
+    }
+
+    public Venue getVenue(String venueName) {
+        for (Venue v : venues) {
+            if (v.getName().equals(venueName)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public Venue addVenue(String venue) {
+        Venue result = new Venue(venue);
+        venues.add(result);
+        return result;
+    }
+
+    public Reservation getReservation(String id) {
+        for (Reservation r : reservations) {
+            if (r.getId().equals(id)) {
+                return r;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
