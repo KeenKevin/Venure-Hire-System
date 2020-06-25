@@ -33,3 +33,7 @@ diff out ../test/output6.json
 
 # Delete temporary file
 rm out
+rm unsw/venues/Reservation.class
+rm unsw/venues/Room.class
+rm unsw/venues/Venue.class
+rm unsw/venues/VenueHireSystem.class
