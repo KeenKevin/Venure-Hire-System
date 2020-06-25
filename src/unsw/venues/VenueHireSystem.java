@@ -91,15 +91,15 @@ public class VenueHireSystem {
                 Reservation newReservation = new Reservation(id, start, end, rooms);
                 reservations.add(newReservation);
 
-                result.put("status", "success");
-                result.put("venue", v.getName());
-
                 JSONArray roomNames = new JSONArray();
                 for (Room r : rooms) {
                     roomNames.put(r.getName());
                     r.confirmBooking(newReservation);
                 }
                 result.put("rooms", roomNames);
+
+                result.put("venue", v.getName());
+                result.put("status", "success");
 
                 return result;
             }
@@ -125,6 +125,7 @@ public class VenueHireSystem {
                     roomNames.put(r.getName());
                 }
                 result.put("rooms", roomNames);
+                result.put("venue", v.getName());
 
                 return result;
             }

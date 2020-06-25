@@ -22,13 +22,18 @@ public class Reservation {
         Boolean encompass = startReservation.isBefore(start) && endReservation.isAfter(end);
         Boolean startInside = startReservation.isAfter(start) && startReservation.isBefore(end);
         Boolean endInside = endReservation.isAfter(start) && endReservation.isBefore(end);
-        Boolean sameDate = startReservation.equals(start) || endReservation.equals(end);
+        Boolean sameStartDate = startReservation.equals(start) || startReservation.equals(end);
+        Boolean sameEndDate = endReservation.equals(start) || endReservation.equals(end);
 
-        return encompass || startInside || endInside || sameDate;
+        return encompass || startInside || endInside || sameStartDate || sameEndDate;
     }
 
     public String getId() {
         return id;
+    }
+
+    public LocalDate getStart() {
+        return start;
     }
 
     public JSONObject toJSON() {

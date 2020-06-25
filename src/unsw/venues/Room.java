@@ -2,11 +2,18 @@ package unsw.venues;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * @author Kevin Chu
+ */
 public class Room {
+    /**
+     * Room's name
+     */
     private String name;
     private String size;
     private ArrayList<Reservation> reservations;
@@ -56,6 +63,7 @@ public class Room {
 
         result.put("room", name);
 
+        reservations.sort(Comparator.comparing(r -> r.getStart()));
         JSONArray resultReservations = new JSONArray();
         for (Reservation r : reservations) {
             resultReservations.put(r.toJSON());
