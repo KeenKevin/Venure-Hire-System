@@ -1,0 +1,30 @@
+{ "command": "room", "venue": "Venue 1", "room": "Small Room 1", "size": "small" }
+{ "command": "request", "id": "Request 1", "start": "2019-03-25", "end": "2019-03-28", "small": 1, "medium": 0, "large": 0 }
+{ "command": "cancel", "id": "Request 1" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Small Room 2", "size": "small" }
+{ "command": "room", "venue": "Venue 1", "room": "Large Room 1", "size": "large" }
+{ "command": "request", "id": "Request 2", "start": "2019-03-25", "end": "2019-03-28", "small": 2, "medium": 0, "large": 0 }
+{ "command": "cancel", "id": "Request 2" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 2", "room": "Small Room 3", "size": "small" }
+{ "command": "room", "venue": "Venue 2", "room": "Medium Room 1", "size": "medium" }
+{ "command": "request", "id": "Request 3", "start": "2019-03-25", "end": "2019-03-28", "small": 1, "medium": 1, "large": 0 }
+{ "command": "cancel", "id": "Request 3" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }
+
+{ "command": "request", "id": "Request 4", "start": "2019-03-25", "end": "2019-03-28", "small": 1, "medium": 1, "large": 0 }
+{ "command": "request", "id": "Request 5", "start": "2019-03-25", "end": "2019-03-28", "small": 2, "medium": 0, "large": 0 }
+{ "command": "request", "id": "Request 7", "start": "2019-03-21", "end": "2019-03-28", "small": 0, "medium": 0, "large": 1 }
+{ "command": "cancel", "id": "Request 5" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }
+{ "command": "cancel", "id": "Request 4" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }
+{ "command": "cancel", "id": "Request 7" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }

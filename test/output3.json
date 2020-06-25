@@ -1,0 +1,36 @@
+[{"reservations":[],"room":"Small Room 1"}]
+{"venue":"Venue 1","rooms":["Small Room 1"],"status":"success"}
+{"venue":"Venue 1","rooms":["Small Room 1"],"status":"success"}
+[{"reservations":[{"start":"2019-03-22","end":"2019-03-24","id":"Request 1"}],"room":"Small Room 1"}]
+{"venue":"Venue 1","rooms":["Small Room 1"],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"}],"room":"Small Room 1"}]
+{"venue":"Venue 1","rooms":["Small Room 1"],"status":"success"}
+{"status":"rejected"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-24","end":"2019-03-28","id":"Request 2"}],"room":"Small Room 1"}]
+{"venue":"Venue 1","rooms":["Small Room 1"],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-24","end":"2019-03-28","id":"Request 2"}],"room":"Small Room 1"}]
+{"venue":"Venue 1","rooms":["Small Room 2"],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"}],"room":"Small Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 2"}],"room":"Small Room 2"}]
+{"venue":"Venue 1","rooms":["Small Room 1"],"status":"success"}
+{"venue":"Venue 1","rooms":["Small Room 2"],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-30","end":"2019-03-31","id":"Request 3"}],"room":"Small Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 2"}],"room":"Small Room 2"}]
+[{"reservations":[],"room":"Small Room 3"}]
+{"venue":"Venue 1","rooms":["Small Room 2"],"status":"success"}
+{"status":"rejected"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-30","end":"2019-03-31","id":"Request 3"}],"room":"Small Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 2"},{"start":"2019-03-30","end":"2019-03-31","id":"Request 4"}],"room":"Small Room 2"}]
+[{"reservations":[],"room":"Small Room 3"}]
+[{"reservations":[],"room":"Medium Room 1"}]
+{"venue":"Venue 3","rooms":["Medium Room 1","Small Room 4"],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-30","end":"2019-03-31","id":"Request 3"}],"room":"Small Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 2"}],"room":"Small Room 2"}]
+[{"reservations":[],"room":"Small Room 3"}]
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 4"}],"room":"Medium Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 4"}],"room":"Small Room 4"}]
+{"venue":"Venue 1","rooms":[],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-30","end":"2019-03-31","id":"Request 3"}],"room":"Small Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 2"}],"room":"Small Room 2"}]
+[{"reservations":[],"room":"Small Room 3"}]
+[{"reservations":[],"room":"Medium Room 1"},{"reservations":[],"room":"Small Room 4"}]
+[{"reservations":[],"room":"Large Room 1"}]
+{"venue":"Venue 4","rooms":["Large Room 1"],"status":"success"}
+[{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 1"},{"start":"2019-03-30","end":"2019-03-31","id":"Request 3"}],"room":"Small Room 1"},{"reservations":[{"start":"2019-03-23","end":"2019-03-23","id":"Request 2"}],"room":"Small Room 2"}]
+[{"reservations":[],"room":"Small Room 3"}]
+[{"reservations":[],"room":"Medium Room 1"},{"reservations":[],"room":"Small Room 4"}]
+[{"reservations":[{"start":"2019-04-23","end":"2019-06-23","id":"Request 4"}],"room":"Large Room 1"}]

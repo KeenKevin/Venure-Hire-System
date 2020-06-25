@@ -1,0 +1,32 @@
+{ "command": "room", "venue": "Venue 1", "room": "Small Room 1", "size": "small" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Small Room 2", "size": "small" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Small Room 3", "size": "small" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Medium Room 1", "size": "medium" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Medium Room 2", "size": "medium" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Large Room 1", "size": "large" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 1", "room": "Large Room 2", "size": "large" }
+{ "command": "list", "venue": "Venue 1" }
+
+{ "command": "room", "venue": "Venue 2", "room": "Large Room 3", "size": "large" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }
+
+{ "command": "room", "venue": "Venue 2", "room": "Small Room 4", "size": "small" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }
+
+{ "command": "room", "venue": "Venue 2", "room": "Medium Room 3", "size": "medium" }
+{ "command": "list", "venue": "Venue 1" }
+{ "command": "list", "venue": "Venue 2" }
