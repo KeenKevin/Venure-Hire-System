@@ -239,7 +239,7 @@ public class VenueHireSystem {
         Venue venue = getVenue(venueName);
 
         // Obtaining venue's JSONArray
-        JSONArray result = venue.getRoomJSON();
+        JSONArray result = new JSONArray(venue.getRoomDetails());
 
         return result;
     }

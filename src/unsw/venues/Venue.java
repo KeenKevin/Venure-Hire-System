@@ -2,8 +2,7 @@ package unsw.venues;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
-
-import org.json.JSONArray;
+import java.util.HashMap;
 
 /**
  * Details about a venue (name, rooms)
@@ -195,16 +194,16 @@ public class Venue {
     }
 
     /**
-     * Obtain's a JSONArray of the venue's rooms (name and reservations)
+     * Obtain's a list of the venue's room details (name and reservations)
      */
-    public JSONArray getRoomJSON() {
-        // Creating JSONArray
-        JSONArray result = new JSONArray();
+    public ArrayList<HashMap<String, Object>> getRoomDetails() {
+        // Creating Result
+        ArrayList<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 
         // For all rooms
         for (Room r : rooms) {
             // Add room's JSON
-            result.put(r.toJSON());
+            result.add(r.getDetails());
         }
 
         return result;

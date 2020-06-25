@@ -2,8 +2,7 @@ package unsw.venues;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import org.json.JSONObject;
+import java.util.HashMap;
 
 /**
  * Details about a reservation (id, start, end, rooms)
@@ -74,12 +73,12 @@ public class Reservation {
     }
 
     /**
-     * Obtain JSON details of a reservation
-     * @return Obtain JSON details of a reservation
+     * Obtain details of a reservation
+     * @return Obtain details of a reservation
      */
-    public JSONObject toJSON() {
-        // Creating JSONObject
-        JSONObject result = new JSONObject();
+    public HashMap<String, Object> getDetails() {
+        // Creating HashMap
+        HashMap<String, Object> result = new HashMap<String, Object>();
 
         // Adding details
         result.put("id", id);

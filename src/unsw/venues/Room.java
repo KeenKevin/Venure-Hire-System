@@ -3,9 +3,7 @@ package unsw.venues;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.HashMap;
 
 /**
  * Details about a room (name, size, reservations)
@@ -105,21 +103,21 @@ public class Room {
     }
 
     /**
-     * Obtain details about the Room and its reservation as a JSONObject
-     * @return Room details (name and reservations) as a JSONObject
+     * Obtain details about the Room (name) and its reservations (id, start, end) as a HashMap
+     * @return Room details (name and reservations) as a HashMap
      */
-    public JSONObject toJSON() {
+    public HashMap<String, Object> getDetails() {
         // Creating JSONObject
-        JSONObject result = new JSONObject();
+        HashMap<String, Object> result = new HashMap<String, Object>();
 
         // Adding room details
         result.put("room", name);
 
         // Adding reservations of room sorted by starting date
         reservations.sort(Comparator.comparing(r -> r.getStart()));
-        JSONArray resultReservations = new JSONArray();
+        ArrayList<HashMap<String, Object>> resultReservations = new ArrayList<HashMap<String, Object>>();
         for (Reservation r : reservations) {
-            resultReservations.put(r.toJSON());
+            resultReservations.add(r.getDetails());
         }
         result.put("reservations", resultReservations);
 
