@@ -52,71 +52,30 @@ public class Venue {
      * Request a potential booking
      * @param start Start date of new booking (LocalDate)
      * @param end End date of new booking (LocalDate)
-     * @param small Amount of small rooms (int)
-     * @param medium Amount of medium rooms (int)
-     * @param large Amount of large rooms (int)
+     * @param sizes Amount of room sizes requested
      * @return ArrayList<Room> if it is a possible booking, null if not possible
      */
-    public ArrayList<Room> request(LocalDate start, LocalDate end, int small, int medium, int large) {
+    public ArrayList<Room> request(LocalDate start, LocalDate end, HashMap<String, Integer> sizes) {
         // Creating ArrayList of rooms
         ArrayList<Room> result = new ArrayList<Room>();
 
         // For all rooms
         for (Room r : rooms) {
-            // Find out the size of the room
-            switch(r.getSize()) {
-                // If the size is small
-                case "small": {
-                    // Check if we still need small rooms
-                    if (small > 0) {
-                        // Attempt to book room if possible
-                        Room room = r.request(start, end);
+            // Checking if the rooms for a size is already filled
+            if (sizes.get(r.getSize()) > 0) {
+                // More rooms of the size need to be booked, attempt to book if possible
+                Room room = r.request(start, end);
 
-                        // Check if the room can be booked for the time frame
-                        if (room != null) {
-                            // Found room to book
-                            result.add(room);
-                            small -= 1;
-                        }
-                    }
-                    break;
-                }
-                // If the size is medium
-                case "medium": {
-                    // Check if we still need medium rooms
-                    if (medium > 0) {
-                        // Attempt to book room if possible
-                        Room room = r.request(start, end);
-
-                        // Check if the room can be booked for the time frame
-                        if (room != null) {
-                            // Found room to book
-                            result.add(room);
-                            medium -= 1;
-                        }
-                    }
-                    break;
-                }
-                // If the size is large
-                case "large": {
-                    // Check if we still need large rooms
-                    if (large > 0) {
-                        // Attempt to book room if possible
-                        Room room = r.request(start, end);
-
-                        // Check if the room can be booked for the time frame
-                        if (room != null) {
-                            // Found room to book
-                            result.add(room);
-                            large -= 1;
-                        }
-                    }
-                    break;
+                // Check if the room can be booked for the time frame
+                if (room != null) {
+                    // Found room to book
+                    result.add(room);
+                    sizes.put(r.getSize(), sizes.get(r.getSize()) - 1);
                 }
             }
 
             // Check if the venue can satisfy the request
-            if (small == 0 && medium == 0 && large == 0) {
+            if (requestSatisfied(sizes)) {
                 return result;
             }
         }
@@ -125,66 +84,35 @@ public class Venue {
         return null;
     }
 
-    public ArrayList<Room> change(String id, LocalDate start, LocalDate end, int small, int medium, int large) {
+    /**
+     * Request a potential change of reservation
+     * @param id Identification of reservation (String)
+     * @param start Start date of reservation (LocalDate)
+     * @param end End date of reservation (LocalDate)
+     * @param sizes Amount of rooms required for each size (HashMap<String, Integer>)
+     * @return New rooms if request can be filled, otherwise null
+     */
+    public ArrayList<Room> change(String id, LocalDate start, LocalDate end, HashMap<String, Integer> sizes) {
         // Creating result to store rooms which can be booked
         ArrayList<Room> result = new ArrayList<Room>();
 
         // For all rooms
         for (Room r : rooms) {
-            // Find out the size of the room
-            switch(r.getSize()) {
-                // If the size is small
-                case "small": {
-                    // Check if we still need small rooms
-                    if (small > 0) {
-                        // Attempt to book room if possible
-                        Room room = r.change(id, start, end);
+            // Checking if the rooms for a size is already filled
+            if (sizes.get(r.getSize()) > 0) {
+                // More rooms of the size need to be booked, attempt to book if possible
+                Room room = r.change(id, start, end);
 
-                        // Check if the room can be booked for the time frame
-                        if (room != null) {
-                            // Found room to book
-                            result.add(room);
-                            small -= 1;
-                        }
-                    }
-                    break;
-                }
-                // If the size is medium
-                case "medium": {
-                    // Check if we still need medium rooms
-                    if (medium > 0) {
-                        // Attempt to book room if possible
-                        Room room = r.change(id, start, end);
-
-                        // Check if the room can be booked for the time frame
-                        if (room != null) {
-                            // Found room to book
-                            result.add(room);
-                            medium -= 1;
-                        }
-                    }
-                    break;
-                }
-                // If the size is large
-                case "large": {
-                    // Check if we still need large rooms
-                    if (large > 0) {
-                        // Attempt to book room if possible
-                        Room room = r.change(id, start, end);
-
-                        // Check if the room can be booked for the time frame
-                        if (room != null) {
-                            // Found room to book
-                            result.add(room);
-                            large -= 1;
-                        }
-                    }
-                    break;
+                // Check if the room can be booked for the time frame
+                if (room != null) {
+                    // Found room to book
+                    result.add(room);
+                    sizes.put(r.getSize(), sizes.get(r.getSize()) - 1);
                 }
             }
 
             // Check if the venue can satisfy the request
-            if (small == 0 && medium == 0 && large == 0) {
+            if (requestSatisfied(sizes)) {
                 return result;
             }
         }
@@ -208,6 +136,24 @@ public class Venue {
         }
 
         return result;
+    }
+
+    /**
+     * Checks if a request is satisfied based on the leftover room requests
+     * @param sizes
+     * @return Whether or not the requests given are all satisfied by remaining orders
+     */
+    private Boolean requestSatisfied(HashMap<String, Integer> sizes) {
+        // Check if the venue can satisfy the request
+        for (Integer i : sizes.values()) {
+            if (i != 0) {
+                // Venue has not yet  fully satisified request
+                return false;
+            }
+        }
+        
+        // Request has been satisfied
+        return true;
     }
 
 }

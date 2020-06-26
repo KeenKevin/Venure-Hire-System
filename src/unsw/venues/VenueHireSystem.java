@@ -314,6 +314,8 @@ public class VenueHireSystem {
         result.put("small", small);
         result.put("medium", medium);
         result.put("large", large);
+
+        return result;
     }
 
     /**
