@@ -37,7 +37,7 @@ public class Venue {
 
     /**
      * Adds a new room to Venue
-     * @param Name Name of room (String)
+     * @param name Name of room (String)
      * @param size Size of room (String)
      */
     public void addRoom(String name, String size) {
@@ -195,6 +195,7 @@ public class Venue {
 
     /**
      * Obtain's a list of the venue's room details (name and reservations)
+     * @return Returns details of all room details at a venue (ArrayList of HashMap(String, Object))
      */
     public ArrayList<HashMap<String, Object>> getRoomDetails() {
         // Creating Result
