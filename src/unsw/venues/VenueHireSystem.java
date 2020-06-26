@@ -3,6 +3,7 @@ package unsw.venues;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,8 +58,11 @@ public class VenueHireSystem {
                 int medium = json.getInt("medium");
                 int large = json.getInt("large");
 
+                // Standardise Sizes
+                HashMap<String, Integer> sizes = standardiseSizeAmount(small, medium, large);
+
                 // Executing Command
-                JSONObject result = request(id, start, end, small, medium, large);
+                JSONObject result = request(id, start, end, sizes);
 
                 // Returning result
                 System.out.println(result.toString());
@@ -74,8 +78,11 @@ public class VenueHireSystem {
                 int medium = json.getInt("medium");
                 int large = json.getInt("large");
 
+                // Standardise Sizes
+                HashMap<String, Integer> sizes = standardiseSizeAmount(small, medium, large);
+
                 // Executing command
-                JSONObject result = change(id, start, end, small, medium, large);
+                JSONObject result = change(id, start, end, sizes);
 
                 // Returning result
                 System.out.println(result.toString());
@@ -130,19 +137,17 @@ public class VenueHireSystem {
      * @param id Identification of new reservation (String)
      * @param start Start date of reservation (LocalDate)
      * @param end End date of reservation (LocalDate)
-     * @param small Amount of small rooms requested (int)
-     * @param medium Amount of medium rooms requested (int)
-     * @param large Amount of medium rooms requested (int)
+     * @param sizes Amount of room sizes requested
      * @return Request status and if successful, venue and room details (JSONObject)
      */
-    private JSONObject request(String id, LocalDate start, LocalDate end, int small, int medium, int large) {
+    private JSONObject request(String id, LocalDate start, LocalDate end, HashMap<String, Integer> sizes) {
         // Creating JSONObject
         JSONObject result = new JSONObject();
 
         // For all venues
         for (Venue v : venues) {
             // Check if a possible booking can be made
-            ArrayList<Room> rooms = v.request(start, end, small, medium, large);
+            ArrayList<Room> rooms = v.request(start, end, sizes);
 
             // If a booking can be made
             if (rooms != null) {
@@ -176,19 +181,17 @@ public class VenueHireSystem {
      * @param id Identification of new reservation (String)
      * @param start Start date of reservation (LocalDate)
      * @param end End date of reservation (LocalDate)
-     * @param small Amount of small rooms requested (int)
-     * @param medium Amount of medium rooms requested (int)
-     * @param large Amount of medium rooms requested (int)
+     * @param sizes Requested sizes and amount of sizes
      * @return Request status and if successful, venue and room details (JSONObject)
      */
-    private JSONObject change(String id, LocalDate start, LocalDate end, int small, int medium, int large) {
+    private JSONObject change(String id, LocalDate start, LocalDate end, HashMap<String, Integer> sizes) {
         // Creating JSONObject
         JSONObject result = new JSONObject();
 
         // For all venues
         for (Venue v : venues) {
             // Check if the change request can be fulfilled
-            ArrayList<Room> rooms = v.change(id, start, end, small, medium, large);
+            ArrayList<Room> rooms = v.change(id, start, end, sizes);
 
             // If a booking can be made
             if (rooms != null) {
@@ -295,6 +298,22 @@ public class VenueHireSystem {
 
         // Reservation could not be found
         return null;
+    }
+
+    /**
+     * Converts sizes to a more standard method to iterate through
+     * @param small Amount of small rooms (int)
+     * @param medium Amount of medium rooms (int)
+     * @param large Amount of large rooms (int)
+     * @return Amount of small, medium and large rooms referenced by room size (HashMap<String, Integer>)
+     */
+    private HashMap<String, Integer> standardiseSizeAmount(int small, int medium, int large) {
+        // Creating hash map to store size
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+
+        result.put("small", small);
+        result.put("medium", medium);
+        result.put("large", large);
     }
 
     /**
