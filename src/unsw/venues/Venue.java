@@ -59,10 +59,13 @@ public class Venue {
         // Creating ArrayList of rooms
         ArrayList<Room> result = new ArrayList<Room>();
 
+        // Creating a clone of sizes
+        HashMap<String, Integer> sizesClone = new HashMap<String, Integer>(sizes);
+
         // For all rooms
         for (Room r : rooms) {
             // Checking if the rooms for a size is already filled
-            if (sizes.get(r.getSize()) > 0) {
+            if (sizesClone.get(r.getSize()) > 0) {
                 // More rooms of the size need to be booked, attempt to book if possible
                 Room room = r.request(start, end);
 
@@ -70,12 +73,12 @@ public class Venue {
                 if (room != null) {
                     // Found room to book
                     result.add(room);
-                    sizes.put(r.getSize(), sizes.get(r.getSize()) - 1);
+                    sizesClone.put(r.getSize(), sizesClone.get(r.getSize()) - 1);
                 }
             }
 
             // Check if the venue can satisfy the request
-            if (requestSatisfied(sizes)) {
+            if (requestSatisfied(sizesClone) == true) {
                 return result;
             }
         }
@@ -89,17 +92,20 @@ public class Venue {
      * @param id Identification of reservation (String)
      * @param start Start date of reservation (LocalDate)
      * @param end End date of reservation (LocalDate)
-     * @param sizes Amount of rooms required for each size (HashMap<String, Integer>)
+     * @param sizes Amount of rooms required for each size (HashMap(String, Integer))
      * @return New rooms if request can be filled, otherwise null
      */
     public ArrayList<Room> change(String id, LocalDate start, LocalDate end, HashMap<String, Integer> sizes) {
         // Creating result to store rooms which can be booked
         ArrayList<Room> result = new ArrayList<Room>();
 
+        // Creating a clone of sizes
+        HashMap<String, Integer> sizesClone = new HashMap<String, Integer>(sizes);
+
         // For all rooms
         for (Room r : rooms) {
             // Checking if the rooms for a size is already filled
-            if (sizes.get(r.getSize()) > 0) {
+            if (sizesClone.get(r.getSize()) > 0) {
                 // More rooms of the size need to be booked, attempt to book if possible
                 Room room = r.change(id, start, end);
 
@@ -107,12 +113,12 @@ public class Venue {
                 if (room != null) {
                     // Found room to book
                     result.add(room);
-                    sizes.put(r.getSize(), sizes.get(r.getSize()) - 1);
+                    sizesClone.put(r.getSize(), sizesClone.get(r.getSize()) - 1);
                 }
             }
 
             // Check if the venue can satisfy the request
-            if (requestSatisfied(sizes)) {
+            if (requestSatisfied(sizesClone)) {
                 return result;
             }
         }
